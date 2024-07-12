@@ -1,4 +1,4 @@
-import { NativeModules, Platform } from 'react-native';
+import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
 
 const LINKING_ERROR =
   `The package 'react-native-app-logs' doesn't seem to be linked. Make sure: \n\n` +
@@ -24,6 +24,26 @@ const AppLogs = AppLogsModule
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return AppLogs.multiply(a, b);
-}
+const eventEmitter = new NativeEventEmitter(AppLogs);
+
+const AppLogsEvents = {
+  registerHandler: ({
+    handler,
+    filter = '',
+  }: {
+    handler: (params: { logs: string[]; filter: string }) => void;
+    filter?: string;
+  }) => {
+    AppLogs.addFilterCondition(filter);
+    const subscription = eventEmitter.addListener('newLogAvailable', handler);
+
+    return {
+      remove: () => {
+        AppLogs.removeFilterCondition(filter);
+        subscription.remove();
+      },
+    };
+  },
+};
+
+export default AppLogsEvents;

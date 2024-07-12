@@ -10,15 +10,18 @@ npm install react-native-app-logs
 
 ## Usage
 
-
 ```js
-import { multiply } from 'react-native-app-logs';
+import AppLogs from 'react-native-app-logs';
 
 // ...
 
-const result = await multiply(3, 7);
+AppLogs.registerHandler({
+  filter: '[AppName]',
+  handler: ({filter, logs}) => {
+    console.log(logs);
+  },
+});
 ```
-
 
 ## Contributing
 
