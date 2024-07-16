@@ -17,7 +17,7 @@ class NotificationService: UNNotificationServiceExtension {
     var bestAttemptContent: UNMutableNotificationContent?
 
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
-      os_log("[NotificationService] didReceive() - received notification", log: log)
+      os_log("[AppName] [NotificationService] didReceive() - received notification", log: log)
       
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
