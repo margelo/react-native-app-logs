@@ -6,7 +6,9 @@
 //
 
 import Foundation
-import os.log 
+import os.log
+import UserNotifications
+import UIKit
 
 @objc
 public class ExampleTestLog: NSObject {
@@ -16,5 +18,27 @@ public class ExampleTestLog: NSObject {
   @objc
   public func testLog() {
     os_log("[AppName] sending test log", log: log) 
+  }
+  
+  @objc
+  func requestNotificationPermission() {
+      UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+          if granted {
+            os_log("[AppName] Notification permission granted", log: self.log )
+              self.getNotificationSettings()
+          } else {
+            os_log("[AppName] Notification permission denied", log: self.log )
+          }
+      }
+  }
+
+  @objc 
+  func getNotificationSettings() {
+      UNUserNotificationCenter.current().getNotificationSettings { settings in
+        print ("[AppName] Notification settings: \(settings)" )
+          DispatchQueue.main.async {
+              UIApplication.shared.registerForRemoteNotifications()
+          }
+      }
   }
 }

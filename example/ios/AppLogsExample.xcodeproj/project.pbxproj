@@ -69,6 +69,7 @@
 		688D5E322C465829007112F1 /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		688D5E402C465CAA007112F1 /* AppLogsExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppLogsExample-Bridging-Header.h"; sourceTree = "<group>"; };
 		688D5E412C465CAA007112F1 /* ExampleTestLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTestLog.swift; sourceTree = "<group>"; };
+		688D5E432C465F51007112F1 /* AppLogsExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = AppLogsExample.entitlements; path = AppLogsExample/AppLogsExample.entitlements; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = AppLogsExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-AppLogsExample-AppLogsExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppLogsExample-AppLogsExampleTests.release.xcconfig"; path = "Target Support Files/Pods-AppLogsExample-AppLogsExampleTests/Pods-AppLogsExample-AppLogsExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		D9B1E6E150BB838959CF9B29 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = AppLogsExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -136,6 +137,7 @@
 		13B07FAE1A68108700A75B9A /* AppLogsExample */ = {
 			isa = PBXGroup;
 			children = (
+				688D5E432C465F51007112F1 /* AppLogsExample.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -573,6 +575,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = AppLogsExample/AppLogsExample.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LC6XSNN25D;
 				ENABLE_BITCODE = NO;
@@ -587,7 +590,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = applogs.example;
+				PRODUCT_BUNDLE_IDENTIFIER = applogs.example.hanno;
 				PRODUCT_NAME = AppLogsExample;
 				SWIFT_OBJC_BRIDGING_HEADER = "AppLogsExample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -602,6 +605,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = AppLogsExample/AppLogsExample.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LC6XSNN25D;
 				INFOPLIST_FILE = AppLogsExample/Info.plist;
@@ -615,7 +619,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = applogs.example;
+				PRODUCT_BUNDLE_IDENTIFIER = applogs.example.hanno;
 				PRODUCT_NAME = AppLogsExample;
 				SWIFT_OBJC_BRIDGING_HEADER = "AppLogsExample-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -653,7 +657,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = applogs.example.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = applogs.example.hanno.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -694,7 +698,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = applogs.example.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = applogs.example.hanno.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
