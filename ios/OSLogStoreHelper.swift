@@ -11,6 +11,7 @@ import OSLog
 @available(iOS 15.0, *)
 @objc
 public class OSLogStoreHelper: NSObject {
+    private static var appGroupName: String?
     private var logStore: OSLogStore?
     private static var onNewLogs: (([String]) -> Void)? = nil
 
@@ -40,10 +41,7 @@ public class OSLogStoreHelper: NSObject {
     }
 
     static func handleNewData() {
-        // os_log("Received notification of new data", log: .default, type: .debug)
-
-        // Retrieve the array from UserDefaults
-        let userDefaults = UserDefaults(suiteName: "group.applogs.example")
+        let userDefaults = UserDefaults(suiteName: appGroupName)
         if let passedStrings = userDefaults?.array(forKey: "logs") as? [String] {
             print("Received strings: \(passedStrings)")
             OSLogStoreHelper.onNewLogs?(passedStrings)
@@ -54,10 +52,14 @@ public class OSLogStoreHelper: NSObject {
     }
 
     deinit {
-        // Unregister the observer when the AppDelegate is deallocated
+        // Unregister the observer when the module is deallocated
         let center = CFNotificationCenterGetDarwinNotifyCenter()
         let observer = UnsafeRawPointer(Unmanaged.passUnretained(self).toOpaque())
         CFNotificationCenterRemoveObserver(center, observer, nil, nil)
+    }
+    
+    @objc public func setAppGroupName(_ appGroupName: String) {
+        OSLogStoreHelper.appGroupName = appGroupName
     }
 
     @objc public func getNewLogs(since startTime: Date) {

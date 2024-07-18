@@ -36,6 +36,14 @@ On iOS each process has its own logs and they live only within the process (and 
 To intercept logs from `NotificationServiceExtension` you need to:
 
 - give common app group for both `NotificationServiceExtension` and the main app;
+- specify `appGroupName` in `AppLogs.configureAppGroupName` method:
+
+```ts
+import AppLogs from 'react-native-app-logs';
+
+AppLogs.configureAppGroupName('group.applogs.example');
+```
+
 - add new Pod to your `NotificationServiceExtension`:
 
 ```rb

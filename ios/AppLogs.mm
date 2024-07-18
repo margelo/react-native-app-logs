@@ -86,6 +86,15 @@ RCT_EXPORT_METHOD(removeFilterCondition:(NSString *)filter
     resolve(filter);
 }
 
+RCT_EXPORT_METHOD(configureAppGroupName:(NSString *)appGroupName
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    [logStoreHelper setAppGroupName: appGroupName];
+
+    resolve(appGroupName);
+}
+
 // Don't compile this code when we build for the old architecture.
 #ifdef RCT_NEW_ARCH_ENABLED
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:

@@ -6,6 +6,8 @@ export default function App() {
   const [logs, setLogs] = useState<string[]>([]);
 
   useEffect(() => {
+    AppLogs.configureAppGroupName('group.applogs.example');
+
     const listener = AppLogs.registerHandler({
       filter: '[AppName]',
       handler: ({ logs }) => {

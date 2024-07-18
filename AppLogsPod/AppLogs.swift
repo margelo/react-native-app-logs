@@ -25,9 +25,9 @@ public class AppLogs: NSObject {
     }
     
     @objc func checkForNewLogs(appGroup: String) {
-        print("Chcking logs from: \(AppLogs.lastLogCheckTime)")
+        print("Checking logs from: \(AppLogs.lastLogCheckTime)")
         getNewLogs(since: AppLogs.lastLogCheckTime) { logs in
-            let userDefaults = UserDefaults(suiteName: "group.applogs.example")
+            let userDefaults = UserDefaults(suiteName: appGroup)
             userDefaults?.set(logs, forKey: "logs")
             userDefaults?.synchronize()
             
