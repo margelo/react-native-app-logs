@@ -14,17 +14,17 @@ public class AppLogs: NSObject {
     private var logStore: OSLogStore?
     private static var lastLogCheckTime = Date(timeIntervalSince1970: 0)
     
-    @objc public func setupWatcher() {
+    @objc public func setupWatcher(appGroup: String) {
         do {
             logStore = try OSLogStore(scope: .currentProcessIdentifier)
         } catch {
             print("Failed to create OSLogStore: \(error)")
         }
         
-        checkForNewLogs()
+        checkForNewLogs(appGroup: appGroup)
     }
     
-    @objc func checkForNewLogs() {
+    @objc func checkForNewLogs(appGroup: String) {
         print("Chcking logs from: \(AppLogs.lastLogCheckTime)")
         getNewLogs(since: AppLogs.lastLogCheckTime) { logs in
             let userDefaults = UserDefaults(suiteName: "group.applogs.example")

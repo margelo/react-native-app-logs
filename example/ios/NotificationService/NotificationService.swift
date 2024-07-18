@@ -20,7 +20,7 @@ class NotificationService: UNNotificationServiceExtension {
     override init() {
         super.init()
 
-        logStoreHelper.setupWatcher()
+        logStoreHelper.setupWatcher(appGroup: "group.applogs.example")
     }
 
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
