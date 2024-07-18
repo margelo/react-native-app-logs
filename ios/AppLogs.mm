@@ -19,10 +19,15 @@ RCT_EXPORT_MODULE()
 - (instancetype)init
 {
   self = [super init];
-    
+
   filters = [[NSMutableArray alloc] init];
-  logStoreHelper = [[OSLogStoreHelper alloc] init];
-  [logStoreHelper setupLogStore];
+  logStoreHelper = [[OSLogStoreHelper alloc] initOnNewLogs: ^(NSArray<NSString *> *logs) {
+      for (NSString *filter in self->filters) {
+          NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[c] %@", filter];
+          NSArray *filteredLogs = [logs filteredArrayUsingPredicate:predicate];
+          [self sendEvent:@"newLogAvailable" body:@{ @"filter": filter, @"logs": filteredLogs }];
+      }
+  }];
   // Set up a timer to check for new logs periodically
   logCheckTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
                                                               target:self
@@ -35,13 +40,7 @@ RCT_EXPORT_MODULE()
 }
 
 - (void)checkForNewLogs {
-    [logStoreHelper getNewLogsSince:lastLogCheckTime completion:^(NSArray<NSString *> *logs) {
-        for (NSString *filter in self->filters) {
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[c] %@", filter];
-            NSArray *filteredLogs = [logs filteredArrayUsingPredicate:predicate];
-            [self sendEvent:@"newLogAvailable" body:@{ @"filter": filter, @"logs": filteredLogs }];
-        }
-    }];
+    [logStoreHelper getNewLogsSince:lastLogCheckTime];
     lastLogCheckTime = [NSDate date];
 }
 

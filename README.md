@@ -10,6 +10,10 @@ npm install react-native-app-logs
 
 ## Usage
 
+### Basic usage
+
+The code snippet below will intercept all logs from the main app.
+
 ```js
 import AppLogs from 'react-native-app-logs';
 
@@ -17,11 +21,23 @@ import AppLogs from 'react-native-app-logs';
 
 AppLogs.registerHandler({
   filter: '[AppName]',
-  handler: ({filter, logs}) => {
-    console.log(logs);
+  handler: ({ filter, logs }) => {
+    if (logs.length !== 0) {
+      Alert.alert(filter, logs.join('\n'));
+    }
   },
 });
 ```
+
+### Intercept logs from `NotificationServiceExtension`
+
+On iOS each process has its own logs and they live only within the process (and do not share the logs with other processes).
+
+To intercept logs from `NotificationServiceExtension` you need to:
+
+- give common app group;
+- add new Pod to your `NotificationServiceExtension`;
+- forward logs from `NotificationServiceExtension` to the main app.
 
 ## Contributing
 
