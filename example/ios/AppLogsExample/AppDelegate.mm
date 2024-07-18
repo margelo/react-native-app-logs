@@ -17,6 +17,8 @@
   ExampleTestLog *testModule = [[ExampleTestLog alloc] init];
 //  [testModule testLog];
   [testModule requestNotificationPermission];
+  
+  NSLog(@"[AppName] NSLog from AppDelegate");
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
