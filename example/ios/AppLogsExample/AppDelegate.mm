@@ -15,7 +15,7 @@
   
   // Create a test log from swift
   ExampleTestLog *testModule = [[ExampleTestLog alloc] init];
-//  [testModule testLog];
+  [testModule testLog];
   [testModule requestNotificationPermission];
   
   NSLog(@"[AppName] NSLog from AppDelegate");

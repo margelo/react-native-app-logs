@@ -16,7 +16,7 @@ public class ExampleTestLog: NSObject {
 
     @objc
     public func testLog() {
-        os_log("[AppName] sending test log", log: log)
+        os_log("[AppName] sending test log from another swift file", log: log)
     }
 
     @objc
