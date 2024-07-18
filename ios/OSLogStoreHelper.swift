@@ -21,27 +21,27 @@ public class OSLogStoreHelper: NSObject {
             print("Failed to create OSLogStore: \(error)")
         }
         OSLogStoreHelper.onNewLogs = onNewLogs
-        
+
         super.init()
-        
+
         // Register for Darwin notifications
         let notificationName = "io.margelo.newLogsAvailable"
         let center = CFNotificationCenterGetDarwinNotifyCenter()
         let observer = UnsafeRawPointer(Unmanaged.passUnretained(self).toOpaque())
-        
+
         CFNotificationCenterAddObserver(center,
                                         observer,
-                                        { (center, observer, name, object, userInfo) in
+                                        { _, _, _, _, _ in
                                             OSLogStoreHelper.handleNewData()
                                         },
                                         notificationName as CFString,
                                         nil,
                                         .deliverImmediately)
     }
-    
+
     static func handleNewData() {
         // os_log("Received notification of new data", log: .default, type: .debug)
-        
+
         // Retrieve the array from UserDefaults
         let userDefaults = UserDefaults(suiteName: "group.applogs.example")
         if let passedStrings = userDefaults?.array(forKey: "logs") as? [String] {
@@ -52,7 +52,7 @@ public class OSLogStoreHelper: NSObject {
             userDefaults?.synchronize()
         }
     }
-    
+
     deinit {
         // Unregister the observer when the AppDelegate is deallocated
         let center = CFNotificationCenterGetDarwinNotifyCenter()
@@ -71,10 +71,10 @@ public class OSLogStoreHelper: NSObject {
             let now = Date()
             let predicate = NSPredicate(format: "date >= %@ AND date <= %@", startTime as NSDate, now as NSDate)
             var entries: [String] = []
-            
+
             do {
                 let allEntries = try logStore.getEntries(matching: predicate)
-                
+
                 for entry in allEntries {
                     if let logEntry = entry as? OSLogEntryLog {
                         entries.append(logEntry.composedMessage)
@@ -83,10 +83,10 @@ public class OSLogStoreHelper: NSObject {
             } catch {
                 print("Failed to get log entries: \(error)")
             }
-            
+
             let diff = CFAbsoluteTimeGetCurrent() - start
             print("Took \(diff) seconds Logs: \(entries.count)")
-            
+
             OSLogStoreHelper.onNewLogs?(entries)
         }
     }

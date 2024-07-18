@@ -35,9 +35,30 @@ On iOS each process has its own logs and they live only within the process (and 
 
 To intercept logs from `NotificationServiceExtension` you need to:
 
-- give common app group;
-- add new Pod to your `NotificationServiceExtension`;
-- forward logs from `NotificationServiceExtension` to the main app.
+- give common app group for both `NotificationServiceExtension` and the main app;
+- add new Pod to your `NotificationServiceExtension`:
+
+```rb
+target 'NotificationService' do
+  pod 'AppLogs', :path => '../../AppLogsPod/'
+end
+```
+
+- forward logs from `NotificationServiceExtension` to the main app:
+
+```swift
+import AppLogs
+
+class NotificationService: UNNotificationServiceExtension {
+    var logStoreHelper: AppLogs = .init()
+
+    override init() {
+        super.init()
+
+        logStoreHelper.setupWatcher()
+    }
+}
+```
 
 ## Contributing
 

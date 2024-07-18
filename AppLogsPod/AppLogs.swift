@@ -1,5 +1,5 @@
 //
-//  OSLogStoreHelper.swift
+//  AppLogs.swift
 //  react-native-app-logs
 //
 //  Created by Kiryl Ziusko on 09/07/2024.
@@ -10,7 +10,7 @@ import OSLog
 
 @available(iOS 15.0, *)
 @objc
-public class OSLogStoreHelper: NSObject {
+public class AppLogs: NSObject {
     private var logStore: OSLogStore?
     private static var lastLogCheckTime = Date(timeIntervalSince1970: 0)
     
@@ -25,8 +25,8 @@ public class OSLogStoreHelper: NSObject {
     }
     
     @objc func checkForNewLogs() {
-        print("Chcking logs from: \(OSLogStoreHelper.lastLogCheckTime)")
-        getNewLogs(since: OSLogStoreHelper.lastLogCheckTime) { logs in
+        print("Chcking logs from: \(AppLogs.lastLogCheckTime)")
+        getNewLogs(since: AppLogs.lastLogCheckTime) { logs in
             let userDefaults = UserDefaults(suiteName: "group.applogs.example")
             userDefaults?.set(logs, forKey: "logs")
             userDefaults?.synchronize()
@@ -38,7 +38,7 @@ public class OSLogStoreHelper: NSObject {
                                                  CFNotificationName(notificationName as CFString),
                                                  nil, nil, true)
         }
-        OSLogStoreHelper.lastLogCheckTime = Date()
+        AppLogs.lastLogCheckTime = Date()
     }
 
     @objc public func getNewLogs(since startTime: Date, completion: @escaping ([String]) -> Void) {

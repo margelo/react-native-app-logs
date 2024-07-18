@@ -15,7 +15,7 @@ if linkage != nil
 end
 
 target 'NotificationService' do
-  pod 'OSLogStoreHelper', :path => '../../OSLogStoreHelperPod/'
+  pod 'AppLogs', :path => '../../AppLogsPod/'
 end
 
 target 'AppLogsExample' do
