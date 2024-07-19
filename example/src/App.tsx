@@ -18,7 +18,7 @@ AppLogs.registerHandler({
 });
 
 export default function App() {
-  const [logs, setLogs] = useState<NativeLog[]>([]);
+  const [history, setHistory] = useState<NativeLog[]>([]);
 
   useEffect(() => {
     AppLogs.configureAppGroupName('group.applogs.example');
@@ -27,7 +27,7 @@ export default function App() {
       filter: '[AppName]',
       handler: ({ logs }) => {
         if (logs.length !== 0) {
-          setLogs((prev) => [...prev, ...logs]);
+          setHistory((prev) => [...prev, ...logs]);
         }
       },
     });
@@ -40,7 +40,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.container}>
-        {logs.map((log, i) => (
+        {history.map((log, i) => (
           <Text key={i}>
             {i}. {log.timestamp} {log.pid}-{log.tid}::{log.process}|{log.level}|
             {' -> '}
