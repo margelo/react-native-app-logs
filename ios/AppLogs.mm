@@ -11,7 +11,7 @@
     OSLogStoreHelper *logStoreHelper;
     NSTimer *logCheckTimer;
     NSDate *lastLogCheckTime;
-    NSMutableArray<NSString *> *filters;
+    NSMutableDictionary<NSString *, NSNumber *> *filters;
   }
 
 RCT_EXPORT_MODULE()
@@ -20,7 +20,7 @@ RCT_EXPORT_MODULE()
 {
   self = [super init];
 
-  filters = [[NSMutableArray alloc] init];
+  filters = [[NSMutableDictionary alloc] init];
   logStoreHelper = [[OSLogStoreHelper alloc] initOnNewLogs: ^(NSArray<NSString *> *logs) {
       for (NSString *filter in self->filters) {
           NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[c] %@", filter];
@@ -34,7 +34,7 @@ RCT_EXPORT_MODULE()
                                                             selector:@selector(checkForNewLogs)
                                                             userInfo:nil
                                                              repeats:YES];
-   lastLogCheckTime = [NSDate dateWithTimeIntervalSince1970:0]; // Start from the epoch time
+  lastLogCheckTime = [NSDate dateWithTimeIntervalSince1970:0]; // Start from the epoch time
 
   return self;
 }
@@ -72,8 +72,13 @@ RCT_EXPORT_METHOD(addFilterCondition:(NSString *)filter
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
-    [filters addObject:filter];
-
+    NSNumber *count = [filters objectForKey:filter];
+    if (count) {
+        [filters setObject:@([count integerValue] + 1) forKey:filter];
+    } else {
+        [filters setObject:@1 forKey:filter];
+    }
+    
     resolve(filter);
 }
 
@@ -81,8 +86,16 @@ RCT_EXPORT_METHOD(removeFilterCondition:(NSString *)filter
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
-    [filters removeObject:filter];
-
+    NSNumber *count = [filters objectForKey:filter];
+    if (count) {
+        NSInteger newCount = [count integerValue] - 1;
+        if (newCount > 0) {
+            [filters setObject:@(newCount) forKey:filter];
+        } else {
+            [filters removeObjectForKey:filter];
+        }
+    }
+    
     resolve(filter);
 }
 

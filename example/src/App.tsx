@@ -1,6 +1,21 @@
 import { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
+import {
+  Alert,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+} from 'react-native';
 import AppLogs from 'react-native-app-logs';
+
+AppLogs.registerHandler({
+  filter: '[AppName]',
+  handler: ({ logs }) => {
+    if (logs.length !== 0) {
+      Alert.alert(logs.join('\n'));
+    }
+  },
+});
 
 export default function App() {
   const [logs, setLogs] = useState<string[]>([]);
