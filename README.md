@@ -60,10 +60,8 @@ import AppLogs
 class NotificationService: UNNotificationServiceExtension {
     var logStoreHelper: AppLogs = .init()
 
-    override init() {
-        super.init()
-
-        logStoreHelper.setupWatcher(appGroup: "group.applogs.example")
+    deinit {
+        logStoreHelper.interceptLogs(appGroup: "group.applogs.example")
     }
 }
 ```

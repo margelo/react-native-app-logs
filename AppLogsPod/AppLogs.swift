@@ -14,7 +14,7 @@ public class AppLogs: NSObject {
     private var logStore: OSLogStore?
     private static var lastLogCheckTime = Date(timeIntervalSince1970: 0)
     
-    @objc public func setupWatcher(appGroup: String) {
+    @objc public func interceptLogs(appGroup: String) {
         do {
             logStore = try OSLogStore(scope: .currentProcessIdentifier)
         } catch {

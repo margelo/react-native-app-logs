@@ -17,12 +17,6 @@ class NotificationService: UNNotificationServiceExtension {
     var bestAttemptContent: UNMutableNotificationContent?
     var logStoreHelper: AppLogs = .init()
 
-    override init() {
-        super.init()
-
-        logStoreHelper.setupWatcher(appGroup: "group.applogs.example")
-    }
-
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
         os_log("[AppName] [NotificationService] didReceive() - received notification", log: log)
 
@@ -44,5 +38,9 @@ class NotificationService: UNNotificationServiceExtension {
         if let contentHandler = contentHandler, let bestAttemptContent = bestAttemptContent {
             contentHandler(bestAttemptContent)
         }
+    }
+  
+    deinit {
+      logStoreHelper.interceptLogs(appGroup: "group.applogs.example")
     }
 }
