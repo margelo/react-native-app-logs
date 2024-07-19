@@ -21,9 +21,9 @@ RCT_EXPORT_MODULE()
   self = [super init];
 
   filters = [[NSMutableDictionary alloc] init];
-  logStoreHelper = [[OSLogStoreHelper alloc] initOnNewLogs: ^(NSArray<NSString *> *logs) {
+  logStoreHelper = [[OSLogStoreHelper alloc] initOnNewLogs: ^(NSArray<NSDictionary *> *logs) {
       for (NSString *filter in self->filters) {
-          NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[c] %@", filter];
+          NSPredicate *predicate = [NSPredicate predicateWithFormat:@"message CONTAINS[c] %@", filter];
           NSArray *filteredLogs = [logs filteredArrayUsingPredicate:predicate];
           [self sendEvent:@"newLogAvailable" body:@{ @"filter": filter, @"logs": filteredLogs }];
       }

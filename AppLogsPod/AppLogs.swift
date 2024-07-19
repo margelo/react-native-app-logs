@@ -8,11 +8,44 @@
 import Foundation
 import OSLog
 
+extension DateFormatter {
+    func apply(closure: (DateFormatter) -> Void) -> DateFormatter {
+        closure(self)
+        return self
+    }
+}
+
+@available(iOS 15.0, *)
+extension OSLogEntryLog.Level: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .undefined:
+            return "undefined"
+        case .debug:
+            return "debug"
+        case .info:
+            return "info"
+        case .notice:
+            return "notice"
+        case .error:
+            return "error"
+        case .fault:
+            return "fault"
+        default:
+            return "unknown"
+        }
+    }
+}
+
 @available(iOS 15.0, *)
 @objc
 public class AppLogs: NSObject {
     private var logStore: OSLogStore?
     private static var lastLogCheckTime = Date(timeIntervalSince1970: 0)
+    private let formatter = DateFormatter().apply {
+        $0.timeZone = TimeZone(abbreviation: "UTC");
+        $0.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    }
     
     @objc public func interceptLogs(appGroup: String) {
         do {
@@ -41,7 +74,7 @@ public class AppLogs: NSObject {
         AppLogs.lastLogCheckTime = Date()
     }
 
-    @objc public func getNewLogs(since startTime: Date, completion: @escaping ([String]) -> Void) {
+    @objc public func getNewLogs(since startTime: Date, completion: @escaping ([NSDictionary]) -> Void) {
         guard let logStore = logStore else {
             completion([])
             return
@@ -51,14 +84,21 @@ public class AppLogs: NSObject {
             let start = CFAbsoluteTimeGetCurrent()
             let now = Date()
             let predicate = NSPredicate(format: "date >= %@ AND date <= %@", startTime as NSDate, now as NSDate)
-            var entries: [String] = []
+            var entries: [NSDictionary] = []
             
             do {
                 let allEntries = try logStore.getEntries(matching: predicate)
                 
                 for entry in allEntries {
                     if let logEntry = entry as? OSLogEntryLog {
-                        entries.append(logEntry.composedMessage)
+                        entries.append([
+                            "message": logEntry.composedMessage,
+                            "timestamp": self.formatter.string(from: logEntry.date),
+                            "process": logEntry.process,
+                            "pid": logEntry.processIdentifier,
+                            "tid": logEntry.threadIdentifier,
+                            "level": logEntry.level.description,
+                        ])
                     }
                 }
             } catch {

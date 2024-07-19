@@ -26,12 +26,23 @@ const AppLogs = AppLogsModule
 
 const eventEmitter = new NativeEventEmitter(AppLogs);
 
+export type NativeLog = {
+  message: string;
+  timestamp: string;
+  process: string;
+  /** Process ID */
+  pid: number;
+  /** Thread ID */
+  tid: number;
+  level: string;
+};
+
 const AppLogsEvents = {
   registerHandler: ({
     handler,
     filter = '',
   }: {
-    handler: (params: { logs: string[]; filter: string }) => void;
+    handler: (params: { logs: NativeLog[]; filter: string }) => void;
     filter?: string;
   }) => {
     AppLogs.addFilterCondition(filter);

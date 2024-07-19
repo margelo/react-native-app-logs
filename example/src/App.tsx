@@ -6,19 +6,19 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
-import AppLogs from 'react-native-app-logs';
+import AppLogs, { type NativeLog } from 'react-native-app-logs';
 
 AppLogs.registerHandler({
   filter: '[AppName]',
   handler: ({ logs }) => {
     if (logs.length !== 0) {
-      Alert.alert(logs.join('\n'));
+      Alert.alert(logs.map((log) => log.message).join('\n'));
     }
   },
 });
 
 export default function App() {
-  const [logs, setLogs] = useState<string[]>([]);
+  const [logs, setLogs] = useState<NativeLog[]>([]);
 
   useEffect(() => {
     AppLogs.configureAppGroupName('group.applogs.example');
@@ -42,7 +42,9 @@ export default function App() {
       <ScrollView style={styles.container}>
         {logs.map((log, i) => (
           <Text key={i}>
-            {i}. {log}
+            {i}. {log.timestamp} {log.pid}-{log.tid}::{log.process}|{log.level}|
+            {' -> '}
+            {log.message}
           </Text>
         ))}
       </ScrollView>
