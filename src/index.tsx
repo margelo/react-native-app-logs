@@ -55,7 +55,9 @@ const AppLogsEvents = {
       },
     };
   },
-  configureAppGroupName: AppLogs.configureAppGroupName,
+  configureAppGroupName: AppLogs.configureAppGroupName as (
+    appGroupName: string
+  ) => void,
 };
 
 export default AppLogsEvents;

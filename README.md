@@ -58,10 +58,10 @@ end
 import AppLogs
 
 class NotificationService: UNNotificationServiceExtension {
-    var logStoreHelper: AppLogs = .init()
+    let appLogs: AppLogs = .init()
 
     deinit {
-        logStoreHelper.interceptLogs(appGroup: "group.applogs.example")
+        appLogs.interceptLogs(appGroup: "group.applogs.example")
     }
 }
 ```
