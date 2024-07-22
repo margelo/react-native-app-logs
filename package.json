@@ -19,6 +19,7 @@
     "android",
     "ios",
     "cpp",
+    "AppLogsPod",
     "*.podspec",
     "!ios/build",
     "!android/build",
