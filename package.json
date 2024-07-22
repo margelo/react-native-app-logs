@@ -6,6 +6,7 @@
   "main": "./lib/commonjs/index.cjs",
   "module": "./lib/module/index.mjs",
   "types": "./lib/typescript/src/index.d.ts",
+  "react-native": "./src/index",
   "exports": {
     ".": {
       "types": "./lib/typescript/src/index.d.ts",
