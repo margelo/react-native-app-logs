@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "Access native logs from JS code",
   "source": "./src/index.tsx",
-  "main": "./lib/commonjs/index.cjs",
-  "module": "./lib/module/index.mjs",
+  "main": "./lib/commonjs/index",
+  "module": "./lib/module/index",
   "types": "./lib/typescript/src/index.d.ts",
   "react-native": "./src/index",
   "exports": {
