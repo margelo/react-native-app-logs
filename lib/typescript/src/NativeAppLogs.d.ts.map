@@ -1,0 +1,1 @@
+{"version":3,"file":"NativeAppLogs.d.ts","sourceRoot":"","sources":["../../../src/NativeAppLogs.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,WAAW,EAAE,MAAM,cAAc,CAAC;AAGhD,MAAM,WAAW,IAAK,SAAQ,WAAW;IACvC,kBAAkB,CAAC,MAAM,EAAE,MAAM,GAAG,IAAI,CAAC;IACzC,qBAAqB,CAAC,MAAM,EAAE,MAAM,GAAG,IAAI,CAAC;IAC5C,qBAAqB,CAAC,YAAY,EAAE,MAAM,GAAG,IAAI,CAAC;CACnD;;AAED,wBAAiE"}
