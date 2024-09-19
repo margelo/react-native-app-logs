@@ -61,7 +61,7 @@ class NotificationService: UNNotificationServiceExtension {
     let appLogs: AppLogs = .init()
 
     deinit {
-        appLogs.interceptLogs(appGroup: "group.applogs.example")
+        appLogs.forwardLogsTo(appGroup: "group.applogs.example")
     }
 }
 ```

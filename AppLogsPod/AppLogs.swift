@@ -47,7 +47,7 @@ public class AppLogs: NSObject {
         $0.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
     }
     
-    @objc public func interceptLogs(appGroup: String) {
+    @objc public func forwardLogsTo(appGroup: String) {
         do {
             logStore = try OSLogStore(scope: .currentProcessIdentifier)
         } catch {

@@ -41,6 +41,6 @@ class NotificationService: UNNotificationServiceExtension {
     }
   
     deinit {
-      logStoreHelper.interceptLogs(appGroup: "group.applogs.example")
+      logStoreHelper.forwardLogsTo(appGroup: "group.applogs.example")
     }
 }
