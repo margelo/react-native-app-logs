@@ -1,1 +1,1 @@
-{"version":3,"names":[],"sourceRoot":"../../src","sources":["index.ts"],"mappings":";;AAAA,cAAc,eAAY;AAC1B,cAAc,YAAS","ignoreList":[]}
+{"version":3,"names":["default"],"sourceRoot":"../../src","sources":["index.tsx"],"mappings":";;AAAA,SAASA,OAAO,QAAQ,YAAY;AACpC,cAAc,YAAS","ignoreList":[]}
