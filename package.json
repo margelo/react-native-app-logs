@@ -1,6 +1,6 @@
 {
   "name": "react-native-app-logs",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Access native logs from JS code",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index",
