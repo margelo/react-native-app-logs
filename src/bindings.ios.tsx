@@ -1,4 +1,5 @@
 import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
+import type { NativeLog } from './types';
 
 const LINKING_ERROR =
   `The package 'react-native-app-logs' doesn't seem to be linked. Make sure: \n\n` +
@@ -25,17 +26,6 @@ const AppLogs = AppLogsModule
     );
 
 const eventEmitter = new NativeEventEmitter(AppLogs);
-
-export type NativeLog = {
-  message: string;
-  timestamp: string;
-  process: string;
-  /** Process ID */
-  pid: number;
-  /** Thread ID */
-  tid: number;
-  level: string;
-};
 
 const AppLogsEvents = {
   registerHandler: ({

@@ -1,13 +1,4 @@
-export type NativeLog = {
-    message: string;
-    timestamp: string;
-    process: string;
-    /** Process ID */
-    pid: number;
-    /** Thread ID */
-    tid: number;
-    level: string;
-};
+import type { NativeLog } from './types';
 declare const AppLogsEvents: {
     registerHandler: ({ handler, filter, }: {
         handler: (params: {
@@ -21,4 +12,4 @@ declare const AppLogsEvents: {
     configureAppGroupName: (appGroupName: string) => void;
 };
 export default AppLogsEvents;
-//# sourceMappingURL=index.ios.d.ts.map
+//# sourceMappingURL=bindings.ios.d.ts.map
