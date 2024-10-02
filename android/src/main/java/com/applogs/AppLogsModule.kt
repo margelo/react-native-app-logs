@@ -11,11 +11,13 @@ class AppLogsModule internal constructor(context: ReactApplicationContext) :
     return NAME
   }
 
-  // Example method
-  // See https://reactnative.dev/docs/native-modules-android
-  @ReactMethod
-  override fun multiply(a: Double, b: Double, promise: Promise) {
-    promise.resolve(a * b)
+  override fun addFilterCondition(filter: String?) {
+  }
+
+  override fun removeFilterCondition(filter: String?) {
+  }
+
+  override fun configureAppGroupName(appGroupName: String?) {
   }
 
   companion object {
