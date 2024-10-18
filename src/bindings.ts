@@ -1,4 +1,4 @@
-import type { NativeLog } from './types';
+import type { ConfigureParams, NativeLog } from './types';
 
 const AppLogsEvents = {
   registerHandler: (_fn: {
@@ -8,7 +8,7 @@ const AppLogsEvents = {
     // no-op
     return { remove: () => {} };
   },
-  configureAppGroupName: (_appGroupName: string) => {
+  configure: (_params: ConfigureParams) => {
     // no-op
   },
 };

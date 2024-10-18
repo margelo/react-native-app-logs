@@ -19,6 +19,8 @@ import AppLogs from 'react-native-app-logs';
 
 // ...
 
+AppLogs.configure({ interval: 5 });
+
 AppLogs.registerHandler({
   filter: '[AppName]',
   handler: ({ filter, logs }) => {
@@ -36,12 +38,12 @@ On iOS each process has its own logs and they live only within the process (and 
 To intercept logs from `NotificationServiceExtension` you need to:
 
 - give common app group for both `NotificationServiceExtension` and the main app;
-- specify `appGroupName` in `AppLogs.configureAppGroupName` method:
+- specify `appGroupName` in `AppLogs.configure` method:
 
 ```ts
 import AppLogs from 'react-native-app-logs';
 
-AppLogs.configureAppGroupName('group.applogs.example');
+AppLogs.configure({ appGroupName: 'group.applogs.example', interval: 5 });
 ```
 
 - add new Pod to your `NotificationServiceExtension`:

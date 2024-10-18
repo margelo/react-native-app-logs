@@ -1,5 +1,5 @@
 import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
-import type { NativeLog } from './types';
+import type { ConfigureParams, NativeLog } from './types';
 
 const LINKING_ERROR =
   `The package 'react-native-app-logs' doesn't seem to be linked. Make sure: \n\n` +
@@ -45,9 +45,7 @@ const AppLogsEvents = {
       },
     };
   },
-  configureAppGroupName: AppLogs.configureAppGroupName as (
-    appGroupName: string
-  ) => void,
+  configure: AppLogs.configure as (params: ConfigureParams) => void,
 };
 
 export default AppLogsEvents;

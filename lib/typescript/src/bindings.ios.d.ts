@@ -1,4 +1,4 @@
-import type { NativeLog } from './types';
+import type { ConfigureParams, NativeLog } from './types';
 declare const AppLogsEvents: {
     registerHandler: ({ handler, filter, }: {
         handler: (params: {
@@ -9,7 +9,7 @@ declare const AppLogsEvents: {
     }) => {
         remove: () => void;
     };
-    configureAppGroupName: (appGroupName: string) => void;
+    configure: (params: ConfigureParams) => void;
 };
 export default AppLogsEvents;
 //# sourceMappingURL=bindings.ios.d.ts.map

@@ -8,6 +8,11 @@ import {
 } from 'react-native';
 import AppLogs, { type NativeLog } from 'react-native-app-logs';
 
+AppLogs.configure({
+  appGroupName: 'group.applogs.example',
+  interval: 5,
+});
+
 AppLogs.registerHandler({
   filter: '[AppName]',
   handler: ({ logs }) => {
@@ -21,8 +26,6 @@ export default function App() {
   const [history, setHistory] = useState<NativeLog[]>([]);
 
   useEffect(() => {
-    AppLogs.configureAppGroupName('group.applogs.example');
-
     const listener = AppLogs.registerHandler({
       filter: '[AppName]',
       handler: ({ logs }) => {

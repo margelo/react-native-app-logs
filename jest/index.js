@@ -1,7 +1,7 @@
 const NOOP = () => {};
 const AppLogsEvents = {
   registerHandler: () => ({ remove: NOOP }),
-  configureAppGroupName: NOOP,
+  configure: NOOP,
 };
 
 export default AppLogsEvents;

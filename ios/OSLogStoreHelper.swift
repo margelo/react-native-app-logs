@@ -16,7 +16,7 @@ extension DateFormatter {
 }
 
 @available(iOS 15.0, *)
-extension OSLogEntryLog.Level: CustomStringConvertible {
+extension OSLogEntryLog.Level: @retroactive CustomStringConvertible {
     public var description: String {
         switch self {
         case .undefined:

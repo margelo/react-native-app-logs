@@ -28,12 +28,7 @@ RCT_EXPORT_MODULE()
           [self sendEvent:@"newLogAvailable" body:@{ @"filter": filter, @"logs": filteredLogs }];
       }
   }];
-  // Set up a timer to check for new logs periodically
-  logCheckTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
-                                                              target:self
-                                                            selector:@selector(checkForNewLogs)
-                                                            userInfo:nil
-                                                             repeats:YES];
+
   lastLogCheckTime = [NSDate dateWithTimeIntervalSince1970:0]; // Start from the epoch time
 
   return self;
@@ -99,11 +94,26 @@ RCT_EXPORT_METHOD(removeFilterCondition:(NSString *)filter
     resolve(filter);
 }
 
-RCT_EXPORT_METHOD(configureAppGroupName:(NSString *)appGroupName
+RCT_EXPORT_METHOD(configure:(NSDictionary *)params
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
-    [logStoreHelper setAppGroupName: appGroupName];
+    NSString *appGroupName = params[@"appGroupName"];
+    if (appGroupName != nil) {
+      [logStoreHelper setAppGroupName: params[@"appGroupName"]];
+    }
+    NSNumber *interval = params[@"interval"];
+  
+    if ([interval compare:@-1] != NSOrderedSame) {
+      // Set up a timer to check for new logs periodically
+      dispatch_async(dispatch_get_main_queue(), ^{
+          [NSTimer scheduledTimerWithTimeInterval:[interval doubleValue]
+                                           target:self
+                                         selector:@selector(checkForNewLogs)
+                                         userInfo:nil
+                                          repeats:YES];
+      });
+    }
 
     resolve(appGroupName);
 }
