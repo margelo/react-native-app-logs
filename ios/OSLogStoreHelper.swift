@@ -16,7 +16,7 @@ extension DateFormatter {
 }
 
 @available(iOS 15.0, *)
-extension OSLogEntryLog.Level: @retroactive CustomStringConvertible {
+extension OSLogEntryLog.Level: CustomStringConvertible {
     public var description: String {
         switch self {
         case .undefined:
@@ -44,7 +44,7 @@ public class OSLogStoreHelper: NSObject {
     private var logStore: OSLogStore?
     private static var onNewLogs: (([NSDictionary]) -> Void)? = nil
     private let formatter = DateFormatter().apply {
-        $0.timeZone = TimeZone(abbreviation: "UTC");
+        $0.timeZone = TimeZone(abbreviation: "UTC")
         $0.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
     }
 
