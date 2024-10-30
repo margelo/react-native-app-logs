@@ -43,14 +43,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kirillzyusko/react-native-app-logs.git"
+    "url": "git+https://github.com/margelo/react-native-app-logs.git"
   },
   "author": "Kiryl Ziusko <kiryl@margelo.io> (https://github.com/kirillzyusko)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kirillzyusko/react-native-app-logs/issues"
+    "url": "https://github.com/margelo/react-native-app-logs/issues"
   },
-  "homepage": "https://github.com/kirillzyusko/react-native-app-logs#readme",
+  "homepage": "https://github.com/margelo/react-native-app-logs#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
