@@ -1,3 +1,11 @@
+<a href="https://margelo.com">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./docs/static/img/bg-dark.png" />
+    <source media="(prefers-color-scheme: light)" srcset="./docs/static/img/bg-light.png" />
+    <img alt="AppLogs" src="./docs/static/img/bg-light.png" />
+  </picture>
+</a>
+
 # react-native-app-logs
 
 Access native logs from JS code
